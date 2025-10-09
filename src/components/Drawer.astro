@@ -1,0 +1,99 @@
+---
+import { SITE, LINKS } from "@consts";
+import { cn } from "@lib/utils";
+const { pathname } = Astro.url;
+const subpath = pathname.match(/[^/]+/g);
+---
+
+<div
+  id="drawer"
+  class="backdrop-blur-sm backdrop-saturate-200 fixed inset-0 h-0 z-30
+         flex flex-col items-center justify-center
+         bg-neutral-100/50 dark:bg-neutral-900/50
+         transition-all duration-300 ease-in-out overflow-hidden drop-shadow-xl/50"
+>
+  <!-- background spans -->
+  <span
+    class="absolute top-0 left-[-10%] w-[20%] h-full bg-black dark:bg-white skew-x-[-20deg] transform transition-all duration-700"
+  ></span>
+  <span
+    class="absolute top-0 left-[-50%] w-[55%] h-full bg-amber-700 skew-x-[-20deg] transform transition-all duration-700"
+  ></span>
+
+  <!-- Main flex container -->
+  <div
+    class="flex flex-col md:flex-row items-center justify-center gap-4 mt-[65px] h-full w-full relative"
+  >
+    <!-- links -->
+    <nav
+      class="flex flex-col md:flex-row items-center gap-2 md:h-full w-full md:w-auto"
+    >
+      {
+        LINKS.map((LINK) => (
+          <a
+            href={LINK.HREF}
+            class={cn(
+              "flex md:h-full w-full md:w-auto items-center justify-center px-4 py-1",
+              "text-current hover:text-black dark:hover:text-white",
+              "hover:bg-black/5 dark:hover:bg-white/20",
+              "transition-all duration-300 ease-in-out md:skew-x-[-20deg] hover:shadow-xl/50",
+              pathname === LINK.HREF || "/" + subpath?.[0] === LINK.HREF
+                ? "pointer-events-none bg-black dark:bg-white text-white dark:text-black shadow-xl/50"
+                : ""
+            )}
+          >
+            {LINK.TEXT}
+          </a>
+        ))
+      }
+    </nav>
+
+    <!-- buttons styled like links -->
+    <div class="flex flex-col md:flex-row items-center gap-2 mt-3 md:mt-0 md:h-full w-full md:w-auto">
+      <a
+        href="/search"
+        aria-label={`Search blog posts and projects on ${SITE.TITLE}`}
+        class={cn(
+          "flex md:h-full w-full md:w-auto items-center justify-center px-4 py-1",
+          "text-current hover:text-black dark:hover:text-white",
+          "hover:bg-black/5 dark:hover:bg-white/20",
+          "transition-all duration-300 ease-in-out md:skew-x-[-20deg] hover:shadow-xl/50",
+          pathname === "/search" || "/" + subpath?.[0] === "search"
+            ? "pointer-events-none bg-black dark:bg-white text-white dark:text-black"
+            : ""
+        )}
+      >
+        <svg class="size-5 stroke-current"
+          ><use href="/ui.svg#search"></use></svg
+        >
+      </a>
+
+      <button
+        id="drawer-theme-button"
+        aria-label="Toggle light and dark theme"
+        class="flex md:h-full w-full md:w-auto items-center justify-center px-4 py-1
+               text-current hover:text-black dark:hover:text-white
+               hover:bg-black/5 dark:hover:bg-white/20
+               transition-all duration-300 ease-in-out md:skew-x-[-20deg] hover:shadow-xl/50"
+      >
+        <svg class="block dark:hidden size-5 stroke-current">
+          <use href="/ui.svg#sun"></use>
+        </svg>
+        <svg class="hidden dark:block size-5 stroke-current">
+          <use href="/ui.svg#moon"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  #drawer.open {
+    height: 100%;
+  }
+  @media (min-width: 768px) {
+    #drawer.open {
+      height: 20%;
+    }
+  }
+</style>

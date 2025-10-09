@@ -1,0 +1,85 @@
+<section class="relative bg-white dark:bg-black">
+  <div class="animate mx-auto max-w-screen-sm p-5 space-y-24 pb-16">
+    <div id="slideshow_root" class="relative text-center space-y-16">
+      <section class="slide_element px-5">
+        <p class="text-xl border p-2 mb-5 rounded-lg inline-block">Dzień 1</p>
+        <p class="text-2xl sm:text-4xl font-semibold mb-0">
+          Wstępna konsultacja
+        </p>
+        <p class="max-w-xl mx-auto mt-0">
+          Rozmowa mająca na celu zrozumienie wizji i celów projektu, aby jak
+          najlepiej dopasować rozwiązania.
+        </p>
+      </section>
+      <section class="slide_element px-5">
+        <p class="text-xl border p-2 mb-5 rounded-lg inline-block">Dzień 2-7</p>
+        <p class="text-2xl sm:text-4xl font-semibold mt-0 mb-0">
+          Analiza potrzeb
+        </p>
+        <p class="max-w-xl mx-auto mt-0 mb-0 p-0">
+          Szczegółowa analiza wymagań, tworzenie koncepcji UI oraz animowany
+          podgląd projektu.
+        </p>
+      </section>
+      <section class="slide_element px-5">
+        <p class="text-xl border p-2 mb-5 rounded-lg inline-block">
+          Dzień 8-21
+        </p>
+        <p class="text-2xl sm:text-4xl font-semibold mt-0 mb-0">
+          Projektowanie i optymalizacja
+        </p>
+        <p class="max-w-xl mx-auto mt-0 mb-0 p-0">
+          Dopracowanie projektu, optymalizacja wydajności oraz wprowadzanie
+          poprawek na podstawie opinii.
+        </p>
+      </section>
+      <section class="slide_element px-5">
+        <p class="text-xl border p-2 mb-5 rounded-lg inline-block">
+          Dzień 22-30
+        </p>
+        <p class="text-2xl sm:text-4xl font-semibold mt-0 mb-0">
+          Ostatnie poprawki i przekazanie projektu
+        </p>
+        <p class="max-w-xl mx-auto mt-0 mb-0 p-0">
+          Finalizacja projektu, dostarczenie instrukcji obsługi oraz sugestie
+          dotyczące dalszego rozwoju marki.
+        </p>
+      </section>
+      <section class="slide_element px-5">
+        <p class="text-xl border p-2 mb-5 rounded-lg inline-block">Dzień 31</p>
+        <p class="text-2xl sm:text-4xl font-semibold mt-0 mb-0">
+          Projekt jest Twój!
+        </p>
+        <p class="max-w-xl mx-auto mt-0 mb-0 p-0">
+          A teraz pomyślmy o przyszłości projektu!
+        </p>
+      </section>
+    </div>
+  </div>
+</section>
+
+<script>
+import { gsap, Power2 } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+// Get all animated elements
+let animatedStuff = document.querySelectorAll(".slide_element");
+
+animatedStuff.forEach((element) => {
+      gsap.from(element, {
+        opacity: 0.5,
+        scale: 0.9,
+        duration: 1,
+        ease: Power2.easeInOut,
+        scrollTrigger: {
+          trigger: element,
+          start: "top center", 
+          end: "bottom 40%",
+          toggleActions: "play reverse play reverse",
+         // markers: true, 
+        },
+      });
+    });
+</script>

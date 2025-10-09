@@ -1,0 +1,232 @@
+import { formatDate, truncateText } from "@lib/utils";
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  entry:
+    | CollectionEntry<"blog">
+    | CollectionEntry<"projects">
+    | CollectionEntry<"team">;
+  pill?: boolean;
+};
+
+export default function ArrowCard({ entry, pill }: Props) {
+  const getEntryLink = () => {
+    switch (entry.collection) {
+      case "blog":
+        return `/blog/${entry.id}`;
+      case "projects":
+        return `/projects/${entry.id}`;
+      case "team":
+        return `/team/${entry.id}`;
+      default:
+        return "/";
+    }
+  };
+
+  return (
+    <div class="animate">
+      {entry.collection === "projects" ? (
+        // Special design for "projects"
+        <a
+          href={getEntryLink()}
+          class="group flex-1 min-h-[15rem] min-w-[15rem] md:min-h-[25rem] md:min-w-[25rem] not-[]:shadow-xl/20 p-4 gap-3 flex flex-col border rounded-4xl 
+         hover:rounded-md hover:scale-[101%] hover:bg-black/5 hover:dark:bg-white/10 
+         border-black/15 dark:border-white/20 transition-all duration-300 ease-in-out relative"
+        >
+          {entry.data.imageUrl && (
+            <div class="absolute  rounded-4xl group-hover:rounded-md  overflow-hidden inset-0 flex justify-center items-center transition-all duration-500 ease-in-out">
+              <img
+                src={entry.data.imageUrl}
+                alt={entry.data.title}
+                class="absolute scale-100 inset-0 w-full h-full object-cover object-center transition-transform duration-300 ease-in-out"
+                decoding="async"
+                loading="lazy"
+              />
+            </div>
+          )}
+
+          <div
+            class="z-10 relative text-white blend backdrop-blur-md backdrop-brightness-50 rounded-2xl p-4
+            max-w-xs overflow-hidden scale-y-100 md:scale-y-0 origin-top  md:group-hover:scale-y-100 transition-transform duration-300"
+          >
+            <div class="flex flex-wrap items-center gap-2">
+              {pill && (
+                <div class="text-sm capitalize px-2 py-0.5 rounded-full border border-white/25 text-white">
+                  Projekty
+                </div>
+              )}
+              <div class="text-sm uppercase text-gray-200 drop-shadow-md drop-shadow-black">
+                {entry.data.date
+                  ? formatDate(entry.data.date)
+                  : "No date available"}
+              </div>
+            </div>
+            <div class="font-semibold mt-3 text-gray-200 dark:text-white drop-shadow-md drop-shadow-black">
+              {entry.data.title}
+            </div>
+            <div class="text-sm line-clamp-2 text-gray-200 drop-shadow-md drop-shadow-black">
+              {entry.data.summary}
+            </div>
+            <ul class="flex flex-wrap mt-2 gap-1 drop-shadow-md drop-shadow-black">
+              {entry.data.tags.map((tag: string) => (
+                <li class="text-xs uppercase py-0.5 px-1 rounded bg-black/5 dark:bg-white/20 text-gray-200/75 dark:text-white/75">
+                  {truncateText(tag, 20)}
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="stroke-white z-10 drop-shadow-md drop-shadow-black"
+          >
+            <line
+              x1="5"
+              y1="12"
+              x2="19"
+              y2="12"
+              class="scale-x-0 group-hover:scale-x-100 translate-x-4 group-hover:translate-x-1 transition-all duration-300 ease-in-out"
+            />
+            <polyline
+              points="12 5 19 12 12 19"
+              class="translate-x-0 group-hover:translate-x-1 transition-all duration-300 ease-in-out"
+            />
+          </svg> */}
+        </a>
+      ) : entry.collection === "blog" ? (
+        // Normal Card Design
+        <a
+          href={getEntryLink()}
+          class="group min-h-[15rem] min-w-[15rem] overflow-hidden shadow-xl/20 p-4 gap-3 flex items-center border rounded-4xl hover:rounded-md hover:scale-[101%] hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-all duration-300 ease-in-out relative"
+        >
+          <div class="w-full z-10 relative group-hover:text-white group-hover:dark:text-black transition-color duration-300 ease-in-out">
+            <div class="flex flex-wrap items-center gap-2">
+              {pill && (
+                <div class="text-sm capitalize px-2 py-0.5 rounded-full border border-black/15 dark:border-white/25">
+                  Post
+                </div>
+              )}
+              <div class="text-sm uppercase">
+                {entry.data.date ? formatDate(entry.data.date) : ""}
+              </div>
+            </div>
+            <div class="font-semibold mt-3">{entry.data.title}</div>
+            <div class="text-sm line-clamp-2">{entry.data.summary}</div>
+            <ul class="flex flex-wrap mt-2 gap-1">
+              {entry.data.tags.map((tag: string) => (
+                <li class="text-xs uppercase py-0.5 px-1 rounded bg-black/5 dark:bg-white/20">
+                  {truncateText(tag, 20)}
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="stroke-current group-hover:stroke-black group-hover:dark:stroke-white z-10"
+          >
+            <line
+              x1="5"
+              y1="12"
+              x2="19"
+              y2="12"
+              class="scale-x-0 group-hover:scale-x-100 translate-x-4 group-hover:translate-x-1 transition-all duration-300 ease-in-out"
+            />
+            <polyline
+              points="12 5 19 12 12 19"
+              class="translate-x-0 group-hover:translate-x-1 transition-all duration-300 ease-in-out"
+            />
+          </svg> */}
+
+          <span class="absolute top-0 left-[-15%] w-[10%] h-full bg-black dark:bg-white skew-x-[-20deg] transform transition-all duration-700 group-hover:w-[140%]" />
+          <span class="absolute top-0 left-[-50%] w-[20%] h-full bg-amber-700 skew-x-[-20deg] transform transition-all duration-700 group-hover:w-[70%]" />
+        </a>
+      ) : entry.collection === "team" ? (
+        // Team Card Design
+        <a
+          href={getEntryLink()}
+          class="group h-80 p-4 gap-3 flex items-center border rounded-lg hover:scale-105 hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-all duration-300 ease-in-out relative"
+        >
+          {entry.data.imageUrl && (
+            <div class="absolute rounded-lg overflow-hidden inset-0 flex items-center justify-center group-hover:scale-[0.90] transition-all duration-500 ease-in-out ">
+              <img
+                src={entry.data.imageUrl}
+                alt={entry.data.title}
+                class="parallaxImage absolute rounded-lg inset-0 w-full h-full object-cover object-center filter grayscale brightness-[0.3] blur-[4px] transition-transform duration-1000 ease-in-out will-change-transform"
+                decoding="async"
+                loading="lazy"
+              />
+            </div>
+          )}
+
+          <div class="w-full z-10 relative text-white blend">
+            <div class="flex flex-wrap items-center gap-2">
+              {pill && (
+                <div class="text-sm capitalize px-2 py-0.5 rounded-full border border-white/25 text-white">
+                  Członek Teamu
+                </div>
+              )}
+              {/* <div class="text-sm uppercase">
+                        {entry.collection === "team" ? "" : formatDate(entry.data.date)}
+                    </div> */}
+            </div>
+            <div class="font-semibold mt-3 text-white drop-shadow-md drop-shadow-black">
+              {entry.data.title}
+            </div>
+            <div class="text-sm line-clamp-2 text-white drop-shadow-md drop-shadow-black">
+              {entry.data.summary}
+            </div>
+            <ul class="flex flex-wrap mt-2 gap-1 drop-shadow-md drop-shadow-black">
+              {entry.data.tags.map((tag: string) => (
+                <li class="text-xs uppercase py-0.5 px-1 rounded bg-white/20 text-white/75">
+                  {truncateText(tag, 20)}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="stroke-white z-10 drop-shadow-md drop-shadow-black"
+          >
+            <line
+              x1="5"
+              y1="12"
+              x2="19"
+              y2="12"
+              class="scale-x-0 group-hover:scale-x-100 translate-x-4 group-hover:translate-x-1 transition-all duration-300 ease-in-out"
+            />
+            <polyline
+              points="12 5 19 12 12 19"
+              class="translate-x-0 group-hover:translate-x-1 transition-all duration-300 ease-in-out"
+            />
+          </svg>
+        </a>
+      ) : (
+        // Fallback for unknown collections
+        <div class="p-4 text-red-500 bg-red-100 rounded-lg">
+          ERROR: Unsupported collection type.
+        </div>
+      )}
+    </div>
+  );
+}

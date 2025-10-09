@@ -1,0 +1,159 @@
+---
+const { text, sub, buttons, typewriter } = Astro.props;
+
+import { Image } from "astro:assets";
+
+import background_image from "@assets/bud_1.jpg";
+---
+
+<div
+  data-cursor-hover="true"
+  data-cursor-parallax="true"
+  id="animate"
+  class="animate relative w-full h-full"
+>
+  <!-- Background Image -->
+  <Image
+    alt="Presentation Image"
+    src={background_image}
+    class="absolute inset-0 w-full h-full object-cover rounded-4xl saturate-200 shadow-xl/50"
+  />
+
+  <!-- Overlay Gradient & Content -->
+  <div
+    class="relative h-full w-full flex items-center justify-center lg:items-start lg:justify-start
+         bg-[linear-gradient(121deg,_rgba(255,77,0,0.8)_0%,_rgba(0,0,0,0.8)_80%)]
+         backdrop-blur-md rounded-4xl clip-none lg:clip-custom"
+  >
+    <div
+      class="h-full w-[90%] lg:w-[40%] flex flex-col justify-center items-center text-center pl-0 lg:pl-8"
+    >
+      <h1 class="text-6xl lg:text-8xl md:text-7xl font-bold pb-0 w-full">
+        {text}
+      </h1>
+      {
+        typewriter && (
+          <div id="typewriter-text" class="w-full min-h-10">
+            <p
+              data-sub={sub}
+              class="typewriter text-2xl sm:text-3xl italic pt-0"
+            />
+          </div>
+        )
+      }
+
+      {
+        buttons && (
+          <div class="animate flex flex-col items-center gap-4 mt-5 w-full">
+            <a href="/projects" class="shadow-xl/20 relative border-[1px] border-white/30 overflow-hidden will-change-auto w-full sm:w-[40%] py-2 rounded-4xl hover:rounded-md active:scale-95 text-black dark:text-white italic group transition-all duration-200">
+              <span class="text-span relative z-10 transition-colors duration-700 group-hover:text-white dark:group-hover:text-black">
+                Nasze Projekty
+              </span>
+
+              <span class="absolute top-0 left-[-10%] w-[20%] h-full bg-black dark:bg-white skew-x-[-20deg] transform transition-all duration-700 group-hover:w-[140%]" />
+              <span class="absolute top-0 left-[-50%] w-[20%] h-full bg-amber-700 skew-x-[-20deg] transform transition-all duration-700 group-hover:w-[70%]" />
+            </a>
+
+            <a href="/blog" class="shadow-xl/20 relative border-[1px] border-white/30 overflow-hidden will-change-auto w-full sm:w-[40%] py-2 rounded-4xl hover:rounded-md active:scale-95 text-black dark:text-white italic group transition-all duration-200">
+              <span class="text-span relative z-10 transition-colors duration-700 group-hover:text-white dark:group-hover:text-black">
+                Blog
+              </span>
+
+              <span class="absolute top-0 left-[-10%] w-[20%] h-full bg-black dark:bg-white skew-x-[-20deg] transform transition-all duration-700 group-hover:w-[140%]" />
+              <span class="absolute top-0 left-[-50%] w-[20%] h-full bg-amber-700 skew-x-[-20deg] transform transition-all duration-700 group-hover:w-[70%]" />
+            </a>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</div>
+
+<!-- <script is:inline defer data-astro-rerun async src="/js/typewriter.js"></script> -->
+
+<script>
+  import { gsap } from "gsap";
+
+  function run() {
+    const typewriterElement = document.querySelector(
+      "#typewriter-text .typewriter"
+    ) as HTMLElement | null;
+
+    if (!typewriterElement) return;
+
+    const subtitle_val = typewriterElement.dataset.sub;
+
+    const texts = [
+      subtitle_val,
+      "Remonty i wykończenia",
+      "Projektowanie wnętrz",
+      "Modernizacja domów",
+      "Budowa od podstaw",
+    ];
+
+    let index = 0;
+
+    function showNextText() {
+      const currentText = texts[index];
+
+      if (!typewriterElement) return;
+      if (!currentText) return;
+
+      typewriterElement.innerHTML = currentText
+        .split("")
+        .map(
+          (char) =>
+            `<span class="char transform inline-block">${
+              char === " " ? "&nbsp;" : char
+            }</span>`
+        )
+        .join("");
+
+      const chars = typewriterElement.querySelectorAll<HTMLElement>(".char");
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          fadeOut(chars, () => {
+            index = (index + 1) % texts.length;
+            showNextText();
+          });
+        },
+      });
+
+      // Fade in with scale + rotation pop
+      tl.from(chars, {
+        opacity: 0,
+        scale: 0.5,
+        y: -5,
+        x: -25,
+        stagger: { amount: 0.5, from: "start" },
+        duration: 0.7,
+        ease: "back.out(1.7)",
+      });
+
+      // Hold for 2 seconds
+      tl.to({}, { duration: 2 });
+    }
+
+    function fadeOut(chars: NodeListOf<HTMLElement>, onComplete: () => void) {
+      gsap.to(chars, {
+        opacity: 0,
+        scale: 0.8,
+        y: -25,
+        x: 5,
+        stagger: { amount: 0.5, from: "start" },
+        duration: 0.1,
+        ease: "back.in(1.7)",
+        onComplete,
+      });
+    }
+
+    showNextText();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+</script>

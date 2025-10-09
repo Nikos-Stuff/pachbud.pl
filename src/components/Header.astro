@@ -1,0 +1,93 @@
+---
+import { SITE } from "@consts";
+import { cn } from "@lib/utils";
+const { pathname } = Astro.url;
+// const subpath = pathname.match(/[^/]+/g);
+---
+
+<header
+  id="header"
+  class="fixed top-0 w-full h-16 z-40 drop-shadow-xl/50 backdrop-blur-3xl backdrop-saturate-200 bg-white/50 dark:bg-black/50"
+>
+  <div>
+    <!-- background spans -->
+    <span
+      class="absolute top-0 left-[-10%] w-[50%] md:w-[30%] h-full bg-black dark:bg-white skew-x-[-20deg] transform transition-all duration-700"
+    ></span>
+    <span
+      class="absolute top-0 left-[-50%] w-[80%] md:w-[65%] h-full bg-amber-700 skew-x-[-20deg] transform transition-all duration-700"
+    ></span>
+    <!-- Left: Logo / Text styled like the menu button -->
+    <div class="absolute top-1/2 left-0 -translate-y-1/2 px-4">
+      <a href="/" class="flex items-center gap-2 px-4 py-2 font-black italic uppercase hover:scale-105 transition-all duration-200">
+        {SITE.TITLE}
+      </a>
+    </div>
+
+    <!-- Right: Menu Button -->
+    <div class="absolute top-1/2 right-0 -translate-y-1/2 flex gap-1 px-4">
+      <button
+        id="header-drawer-button"
+        aria-label="Toggle drawer open and closed"
+        class={cn(
+          "flex items-center gap-2 px-4 py-2 rounded-2xl",
+          "bg-white/50 dark:bg-black/50 hover:bg-black/5 dark:hover:bg-white/20",
+          "stroke-current hover:stroke-black hover:dark:stroke-white",
+          "border border-black/10 dark:border-white/25",
+          "transition-all duration-300 ease-in-out"
+        )}
+      >
+        <svg id="drawer-open" class="size-6">
+          <use href="/ui.svg#menu"></use>
+        </svg>
+        <svg id="drawer-close" class="size-6">
+          <use href="/ui.svg#x"></use>
+        </svg>
+        <span id="drawer-button-text">Menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  #header-drawer-button > #drawer-open {
+    @apply block;
+  }
+
+  #header-drawer-button > #drawer-close {
+    @apply hidden;
+  }
+
+  #header-drawer-button.open > #drawer-open {
+    @apply hidden;
+  }
+
+  #header-drawer-button.open > #drawer-close {
+    @apply block;
+  }
+</style>
+
+<script is:inline>
+  function toggleDrawer() {
+    const drawer = document.getElementById("drawer");
+    const drawerButton = document.getElementById("header-drawer-button");
+    const buttonText = document.getElementById("drawer-button-text");
+
+    drawer?.classList.toggle("open");
+    drawerButton?.classList.toggle("open");
+
+    if (drawerButton.classList.contains("open")) {
+      buttonText.textContent = "Menu";
+    } else {
+      buttonText.textContent = "Menu";
+    }
+  }
+
+  function initializeDrawerButton() {
+    const drawerButton = document.getElementById("header-drawer-button");
+    drawerButton?.addEventListener("click", toggleDrawer);
+  }
+
+  document.addEventListener("astro:after-swap", initializeDrawerButton);
+  initializeDrawerButton();
+</script>

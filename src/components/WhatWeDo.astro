@@ -1,0 +1,65 @@
+<section class="w-full overflow-hidden h-full relative">
+  <div
+    id="carousel-container"
+    class="w-full h-full flex items-center justify-center overflow-hidden relative"
+  >
+    <div
+      id="carousel"
+      class="inline-block whitespace-nowrap text-4xl md:text-6xl lg:text-8xl font-bold uppercase opacity-50 italic"
+    >
+      <span class="inline-block px-6">Kompleksowej budowie budynków</span>
+      <span class="inline-block px-6">Domy jednorodzinne</span>
+      <span class="inline-block px-6"
+        >Murowane oraz w systemie szkieletowym.</span
+      >
+      <span class="inline-block px-6">Budynki usługowe</span>
+      <span class="inline-block px-6">Od fundamentów po wykończenie.</span>
+      <span class="inline-block px-6">Instalacje hydrauliczne</span>
+      <span class="inline-block px-6">Instalacje elektryczne</span>
+      <span class="inline-block px-6"
+        >Rekuperacja (wentylacja mechaniczna z odzyskiem ciepła)</span
+      >
+      <span class="inline-block px-6">Klimatyzacja</span>
+      <span class="inline-block px-6"
+        >Montaż szamb betonowych oraz studni chłonnych</span
+      >
+    </div>
+  </div>
+</section>
+
+<script>
+  const carousel = document.getElementById("carousel") as HTMLDivElement | null;
+  const container = document.getElementById(
+    "carousel-container"
+  ) as HTMLDivElement | null;
+  const speed: number = 0.5;
+  let position: number = 0;
+
+  if (!carousel || !container) {
+    console.warn("Carousel or container element not found");
+  } else {
+    function scrollCarousel(): void {
+      position -= speed;
+
+      if (!carousel) return;
+      const firstSlide: HTMLElement | undefined = carousel.children[0] as
+        | HTMLElement
+        | undefined;
+
+      if (firstSlide && firstSlide.offsetWidth + position <= 0) {
+        position += firstSlide.offsetWidth;
+        carousel.appendChild(firstSlide);
+      }
+
+      carousel.style.transform = `translateX(${position}px)`;
+
+      requestAnimationFrame(scrollCarousel);
+    }
+
+    scrollCarousel();
+
+    window.addEventListener("resize", (): void => {
+      position = 0;
+    });
+  }
+</script>
