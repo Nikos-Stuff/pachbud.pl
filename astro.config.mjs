@@ -32,7 +32,7 @@ export default defineConfig({
     mdx(),
     sitemap(),
     solidJs(),
-    // playformInline(),
+    playformInline(),
   ],
 
   vite: {
