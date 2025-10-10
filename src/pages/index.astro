@@ -273,7 +273,7 @@ const projects = (await getCollection("projects"))
         >
           {
             posts.map((post) => (
-              <li class="flex-1 min-w-[250px]">
+              <li class="flex-1 min-w-[100%]">
                 <ArrowCard entry={post} />
               </li>
             ))
@@ -301,7 +301,7 @@ const projects = (await getCollection("projects"))
         >
           {
             projects.map((project) => (
-              <li class="flex-1 min-w-[250px] md:min-w-[450px]">
+              <li class="flex-1 min-w-[100%]">
                 <ArrowCard entry={project} />
               </li>
             ))

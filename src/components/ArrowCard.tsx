@@ -26,7 +26,7 @@ export default function ArrowCard({ entry, pill }: Props) {
         // Special design for "projects"
         <a
           href={getEntryLink()}
-          class="group flex-1 min-h-[15rem] min-w-[15rem] md:min-h-[25rem] md:min-w-[25rem] not-[]:shadow-xl/20 p-4 gap-3 flex flex-col border rounded-4xl 
+          class="group flex-1 min-h-[25rem] not-[]:shadow-xl/20 p-4 gap-3 flex flex-col border rounded-4xl 
          hover:rounded-md hover:scale-[101%] hover:bg-black/5 hover:dark:bg-white/10 
          border-black/15 dark:border-white/20 transition-all duration-300 ease-in-out relative"
         >
@@ -100,7 +100,7 @@ export default function ArrowCard({ entry, pill }: Props) {
         // Normal Card Design
         <a
           href={getEntryLink()}
-          class="group min-h-[15rem] min-w-[15rem] overflow-hidden shadow-xl/20 p-4 gap-3 flex items-center border rounded-4xl hover:rounded-md hover:scale-[101%] hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-all duration-300 ease-in-out relative"
+          class="group min-h-[15rem] overflow-hidden shadow-xl/20 p-4 gap-3 flex items-center border rounded-4xl hover:rounded-md hover:scale-[101%] hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-all duration-300 ease-in-out relative"
         >
           <div class="w-full z-10 relative group-hover:text-white group-hover:dark:text-black transition-color duration-300 ease-in-out">
             <div class="flex flex-wrap items-center gap-2">
