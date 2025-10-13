@@ -20,7 +20,7 @@ export default defineConfig({
     },
   },
 
-  site: "https://nikostuff.com",
+  site: "https://pachbud.com",
 
   // tailwind({
   //   applyBaseStyles: false
