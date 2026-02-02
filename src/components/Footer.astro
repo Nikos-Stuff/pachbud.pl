@@ -11,7 +11,7 @@ import PageVersion from "@components/GitVer.astro";
 
 <footer class="relative">
   <div
-    class="relative mx-auto max-w-5xl overflow-hidden rounded-3xl bg-white/80 dark:bg-black/80 backdrop-blur-xl border border-black/10 dark:border-white/20 shadow-lg transition-[margin,padding,height,transform,opacity] duration-300"
+    class="relative mx-auto max-w-5xl overflow-hidden rounded-3xl bg-white/80 dark:bg-black/80 backdrop-blur-xl border border-black/10 dark:border-white/20 shadow-lg transition-[margin,padding,height,transform,opacity] duration-300 mb-5"
   >
     <!-- Section: Back to Top -->
     <section class="py-5">
@@ -99,29 +99,7 @@ import PageVersion from "@components/GitVer.astro";
                   </a>
                 </div>
                 <div class="text-sm mt-2">
-                  &copy; 2025 | <PageVersion />
-                </div>
-              </div>
-
-              <!-- Right: Socials -->
-              <div
-                class="order-1 sm:order-2 flex justify-center sm:justify-end"
-              >
-                <div class="flex flex-wrap gap-1 items-center justify-center">
-                  {
-                    SOCIALS.map((SOCIAL) => (
-                      <a
-                        href={SOCIAL.HREF}
-                        target="_blank"
-                        aria-label={`${SITE.TITLE} on ${SOCIAL.NAME}`}
-                        class="group size-10 rounded-full p-2 items-center justify-center hover:bg-black/5 dark:hover:bg-white/20 blend"
-                      >
-                        <svg class="size-full fill-current group-hover:fill-black group-hover:dark:fill-white blend">
-                          <use href={`/social.svg#${SOCIAL.ICON}`} />
-                        </svg>
-                      </a>
-                    ))
-                  }
+                  &copy; 2026 | <PageVersion />
                 </div>
               </div>
             </div>

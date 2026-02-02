@@ -28,38 +28,37 @@
 </section>
 
 <script>
+  import gsap from "gsap";
+
   const carousel = document.getElementById("carousel") as HTMLDivElement | null;
   const container = document.getElementById(
     "carousel-container"
   ) as HTMLDivElement | null;
-  const speed: number = 0.5;
-  let position: number = 0;
 
-  if (!carousel || !container) {
-    console.warn("Carousel or container element not found");
-  } else {
-    function scrollCarousel(): void {
-      position -= speed;
+  let tween: gsap.core.Tween | null = null;
 
-      if (!carousel) return;
-      const firstSlide: HTMLElement | undefined = carousel.children[0] as
-        | HTMLElement
-        | undefined;
+  function initCarousel(): void {
+    if (!carousel || !container) return;
 
-      if (firstSlide && firstSlide.offsetWidth + position <= 0) {
-        position += firstSlide.offsetWidth;
-        carousel.appendChild(firstSlide);
-      }
+    tween?.kill();
 
-      carousel.style.transform = `translateX(${position}px)`;
+    const containerWidth = container.offsetWidth;
+    const carouselWidth = carousel.scrollWidth;
+    
+    if (carouselWidth <= containerWidth) return;
 
-      requestAnimationFrame(scrollCarousel);
-    }
+    const distance = carouselWidth - containerWidth;
 
-    scrollCarousel();
-
-    window.addEventListener("resize", (): void => {
-      position = 0;
+    tween = gsap.to(carousel, {
+      x: -distance,
+      duration: distance / 100, 
+      ease: "none",
+      repeat: -1,
+      yoyo: true,
     });
   }
+
+  initCarousel();
+  window.addEventListener("resize", initCarousel);
 </script>
+

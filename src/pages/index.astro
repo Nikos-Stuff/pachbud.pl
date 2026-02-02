@@ -14,28 +14,6 @@ import bud_3 from "@assets/bud_3.jpg";
 import bud_4 from "@assets/bud_4.jpg";
 import bud_5 from "@assets/bud_5.jpg";
 import WhatWeDo from "@components/WhatWeDo.astro";
-
-const posts = (await getCollection("blog"))
-  .filter((post) => !post.data.draft)
-  .sort((a, b) => {
-    // Sort by date and time
-    const dateA = new Date(a.data.date);
-    const dateB = new Date(b.data.date);
-
-    const timeA = a.data.time || "00:00";
-    const timeB = b.data.time || "00:00";
-
-    const dateTimeA = new Date(`${dateA.toDateString()} ${timeA}`);
-    const dateTimeB = new Date(`${dateB.toDateString()} ${timeB}`);
-
-    return dateTimeB.getTime() - dateTimeA.getTime();
-  })
-  .slice(0, 3);
-
-const projects = (await getCollection("projects"))
-  .filter((project) => !project.data.draft)
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 3);
 ---
 
 <PageLayout title="Home" description={SITE.DESCRIPTION}>
@@ -53,20 +31,17 @@ const projects = (await getCollection("projects"))
     <DynamicTitle
       text="PachBud"
       sub="Usługi Budowlane"
-      buttons={true}
       typewriter={true}
     />
   </section>
 
   <div class="relative">
     <div
-      class="animate tape flex justify-center items-center mb-5 h-[50px] w-full"
+      class="animate tape flex justify-center items-center mb-5 h-12.5 w-full"
     >
     </div>
     <!-- Going full flexbox right here lol -->
-    <div
-      class="flex flex-col gap-12 md:gap-1 overflow-hidden py-5"
-    >
+    <div class="flex flex-col gap-12 md:gap-1 overflow-hidden py-5">
       {/* Row 1 */}
       <div
         data-cursor-hover="true"
@@ -80,7 +55,7 @@ const projects = (await getCollection("projects"))
 
         {/* Image */}
         <div
-          class="w-full md:flex-[0_0_50%] md:max-w-[50%] h-[20rem] md:h-[35rem] overflow-hidden"
+          class="w-full md:flex-[0_0_50%] md:max-w-[50%] h-80 md:h-140 overflow-hidden"
         >
           <Image
             src={bud_2}
@@ -100,7 +75,7 @@ const projects = (await getCollection("projects"))
           </h2>
           <p
             class="text-lg md:text-xl leading-relaxed tracking-wide text-gray-800 dark:text-gray-200
-         relative after:content-[''] after:block after:w-0 after:h-[2px] after:bg-amber-600
+         relative after:content-[''] after:block after:w-0 after:h-0.5 after:bg-amber-600
          after:absolute after:bottom-0 after:left-0 after:transition-all after:duration-500
          group-hover:after:w-full"
           >
@@ -123,7 +98,7 @@ const projects = (await getCollection("projects"))
 
         {/* Image */}
         <div
-          class="w-full md:flex-[0_0_50%] md:max-w-[50%] h-[20rem] md:h-[35rem] overflow-hidden"
+          class="w-full md:flex-[0_0_50%] md:max-w-[50%] h-80 md:h-140 overflow-hidden"
         >
           <Image
             src={bud_3}
@@ -142,7 +117,7 @@ const projects = (await getCollection("projects"))
           </h2>
           <p
             class="text-lg md:text-xl leading-relaxed tracking-wide text-gray-800 dark:text-gray-200
-         relative after:content-[''] after:block after:w-0 after:h-[2px] after:bg-amber-600
+         relative after:content-[''] after:block after:w-0 after:h-0.5 after:bg-amber-600
          after:absolute after:bottom-0 after:left-0 after:transition-all after:duration-500
          group-hover:after:w-full"
           >
@@ -165,7 +140,7 @@ const projects = (await getCollection("projects"))
 
         {/* Image */}
         <div
-          class="w-full md:flex-[0_0_50%] md:max-w-[50%] h-[20rem] md:h-[35rem] overflow-hidden"
+          class="w-full md:flex-[0_0_50%] md:max-w-[50%] h-80 md:h-140 overflow-hidden"
         >
           <Image
             src={bud_5}
@@ -185,7 +160,7 @@ const projects = (await getCollection("projects"))
           </h2>
           <p
             class="text-lg md:text-xl leading-relaxed tracking-wide text-gray-800 dark:text-gray-200
-         relative after:content-[''] after:block after:w-0 after:h-[2px] after:bg-amber-600
+         relative after:content-[''] after:block after:w-0 after:h-0.5 after:bg-amber-600
          after:absolute after:bottom-0 after:left-0 after:transition-all after:duration-500
          group-hover:after:w-full"
           >
@@ -208,7 +183,7 @@ const projects = (await getCollection("projects"))
 
         {/* Image */}
         <div
-          class="w-full md:flex-[0_0_50%] md:max-w-[50%] h-[20rem] md:h-[35rem] overflow-hidden"
+          class="w-full md:flex-[0_0_50%] md:max-w-[50%] h-80 md:h-140 overflow-hidden"
         >
           <Image
             src={bud_4}
@@ -228,7 +203,7 @@ const projects = (await getCollection("projects"))
           </h2>
           <p
             class="text-lg md:text-xl leading-relaxed tracking-wide text-gray-800 dark:text-gray-200
-         relative after:content-[''] after:block after:w-0 after:h-[2px] after:bg-amber-600
+         relative after:content-[''] after:block after:w-0 after:h-0.5 after:bg-amber-600
          after:absolute after:bottom-0 after:left-0 after:transition-all after:duration-500
          group-hover:after:w-full"
           >
@@ -240,7 +215,7 @@ const projects = (await getCollection("projects"))
     </div>
 
     <div
-      class="animate tape flex justify-center items-center mb-5 mt-5 h-[50px] w-full"
+      class="animate tape flex justify-center items-center mb-5 mt-5 h-12.5 w-full"
     >
     </div>
     <!-- Some scrolling textes here -->
@@ -249,65 +224,39 @@ const projects = (await getCollection("projects"))
     </div>
 
     <div
-      class="animate tape flex justify-center items-center mb-5 mt-5 h-[50px] w-full"
+      class="animate tape flex justify-center items-center mb-5 mt-5 h-12.5 w-full"
     >
     </div>
-
-    <section class="animate md:p-10 relative">
-      <div
-        class="relative h-full w-full
-           bg-[linear-gradient(121deg,_#FF4D00_0%,_#5c0801_100%)]
-           backdrop-blur-md md:rounded-4xl p-4 flex flex-col items-center overflow-hidden"
-      >
-        <!-- Background big text -->
-        <h1
-          class="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-             text-[10rem] md:text-[15rem] lg:text-[20rem]
-             font-extrabold uppercase text-black/10 dark:text-white/10 pointer-events-none select-none whitespace-nowrap"
-        >
-          BLOG
-        </h1>
-
-        <ul
-          class="flex flex-col md:flex-row md:flex-wrap gap-4 justify-center items-center w-full max-w-[1200px] relative z-10"
-        >
-          {
-            posts.map((post) => (
-              <li class="flex-1 min-w-[100%]">
-                <ArrowCard entry={post} />
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </section>
-    <section class="animate pt-10 md:p-10 md:pt-0 relative">
-      <div
-        class="relative h-full w-full
-           bg-[linear-gradient(121deg,_#FF4D00_0%,_#5c0801_100%)]
-           backdrop-blur-md md:rounded-4xl p-4 flex flex-col items-center overflow-hidden"
-      >
-        <!-- Background big text -->
-        <h1
-          class="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-             text-[10rem] md:text-[15rem] lg:text-[20rem]
-             font-extrabold uppercase text-black/10 dark:text-white/10 pointer-events-none select-none whitespace-nowrap"
-        >
-          WORK
-        </h1>
-
-        <ul
-          class="flex flex-col md:flex-row md:flex-wrap gap-4 justify-center items-center w-full max-w-[1200px] relative z-10"
-        >
-          {
-            projects.map((project) => (
-              <li class="flex-1 min-w-[100%]">
-                <ArrowCard entry={project} />
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </section>
   </div>
+  <section class="animate mt-5 mb-20 flex justify-center">
+    <div class="text-center w-full max-w-md">
+      <p class="font-semibold text-black dark:text-white text-3xl">
+        Skontaktuj się z nami!
+      </p>
+
+      <div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 mt-4">
+        {
+          SOCIALS.map((social) => (
+            <>
+              <div class="flex items-center justify-end">
+                <span class="whitespace-nowrap truncate">{social.NAME}</span>
+              </div>
+
+              <div class="truncate">
+                <a
+                  href={social.HREF}
+                  target="_blank"
+                  class="group flex items-center gap-1 underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white underline-offset-2"
+                >
+                  <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white">
+                    {social.TEXT}
+                  </span>
+                </a>
+              </div>
+            </>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 </PageLayout>
