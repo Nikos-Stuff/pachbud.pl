@@ -5,15 +5,15 @@
   >
     <div
       id="carousel"
-      class="inline-block whitespace-nowrap text-4xl md:text-6xl lg:text-8xl font-bold uppercase opacity-50 italic"
+      class="inline-flex whitespace-nowrap text-4xl md:text-6xl lg:text-8xl font-bold uppercase opacity-50 italic"
     >
-      <span class="inline-block px-6">Kompleksowej budowie budynków</span>
+      <span class="inline-block px-6">Kompleksowa budowa budynków</span>
       <span class="inline-block px-6">Domy jednorodzinne</span>
       <span class="inline-block px-6"
-        >Murowane oraz w systemie szkieletowym.</span
+        >Murowane oraz w systemie szkieletowym</span
       >
       <span class="inline-block px-6">Budynki usługowe</span>
-      <span class="inline-block px-6">Od fundamentów po wykończenie.</span>
+      <span class="inline-block px-6">Od fundamentów po wykończenie</span>
       <span class="inline-block px-6">Instalacje hydrauliczne</span>
       <span class="inline-block px-6">Instalacje elektryczne</span>
       <span class="inline-block px-6"
@@ -30,28 +30,34 @@
 <script>
   import gsap from "gsap";
 
-  const carousel = document.getElementById("carousel") as HTMLDivElement | null;
-  const container = document.getElementById(
-    "carousel-container"
-  ) as HTMLDivElement | null;
+  const carousel = document.getElementById("carousel");
+  const container = document.getElementById("carousel-container");
 
-  let tween: gsap.core.Tween | null = null;
+  let tween: gsap.core.Tween;
 
-  function initCarousel(): void {
+  function initCarousel() {
     if (!carousel || !container) return;
 
     tween?.kill();
 
-    const containerWidth = container.offsetWidth;
-    const carouselWidth = carousel.scrollWidth;
-    
-    if (carouselWidth <= containerWidth) return;
+    if (!carousel.dataset.cloned) {
+      const content = carousel.innerHTML;
 
-    const distance = carouselWidth - containerWidth;
+      carousel.innerHTML =
+        content +
+        '<span class="inline-block px-32"></span>' + // spacer
+        content;
+
+      carousel.dataset.cloned = "true";
+    }
+
+    const width = carousel.scrollWidth / 2;
+
+    gsap.set(carousel, { x: 0 });
 
     tween = gsap.to(carousel, {
-      x: -distance,
-      duration: distance / 100, 
+      x: -width,
+      duration: 30,
       ease: "none",
       repeat: -1,
       yoyo: true,
@@ -61,4 +67,3 @@
   initCarousel();
   window.addEventListener("resize", initCarousel);
 </script>
-
