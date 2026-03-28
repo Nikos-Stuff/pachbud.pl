@@ -24,7 +24,7 @@ import background_image from "@assets/bud_1.jpg";
   <!-- Overlay Gradient & Content -->
   <div
     class="relative h-full w-full flex items-center justify-center lg:items-start lg:justify-start
-         bg-[linear-gradient(121deg,_rgba(255,77,0,0.8)_0%,_rgba(0,0,0,0.8)_80%)]
+         bg-[linear-gradient(121deg,rgba(255,77,0,0.8)_0%,rgba(0,0,0,0.8)_80%)]
          backdrop-blur-md rounded-none md:rounded-4xl clip-none lg:clip-custom"
   >
     <div
@@ -47,7 +47,7 @@ import background_image from "@assets/bud_1.jpg";
       {
         buttons && (
           <div class="animate flex flex-col items-center gap-4 mt-5 w-full">
-            <a href="/projects" class="relative border-[1px] border-white/30 overflow-hidden will-change-auto w-full sm:w-[40%] py-2 rounded-4xl hover:rounded-md active:scale-95 text-black dark:text-white italic group transition-all duration-200">
+            <a href="/projects" class="relative border border-white/30 overflow-hidden will-change-auto w-full sm:w-[40%] py-2 rounded-4xl hover:rounded-md active:scale-95 text-black dark:text-white italic group transition-all duration-200">
               <span class="text-span relative z-10 transition-colors duration-700 group-hover:text-white dark:group-hover:text-black">
                 Nasze Projekty
               </span>
@@ -126,7 +126,7 @@ import background_image from "@assets/bud_1.jpg";
       tl.from(chars, {
         opacity: 0,
         scale: 0.5,
-        y: -5,
+        y: 0,
         x: -25,
         stagger: { amount: 0.5, from: "start" },
         duration: 0.7,
@@ -141,7 +141,7 @@ import background_image from "@assets/bud_1.jpg";
       gsap.to(chars, {
         opacity: 0,
         scale: 0.8,
-        y: -25,
+        y: -10,
         x: 5,
         stagger: { amount: 0.5, from: "start" },
         duration: 0.1,
